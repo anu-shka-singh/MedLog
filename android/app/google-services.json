@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "3655845413",
+    "project_id": "medlog-353e6",
+    "storage_bucket": "medlog-353e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3655845413:android:473970806f77a4192361cc",
+        "android_client_info": {
+          "package_name": "com.example.medlog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3655845413-m4gpro1pu35kuqm3aq2qh4h71tk60lb9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIj4CV_b672QNAh5F9FLvNS2b2Sqoi5qc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3655845413-m4gpro1pu35kuqm3aq2qh4h71tk60lb9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "3655845413-bllm45eajdkt801jogbio3pfpsv2ju34.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.medlog"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
