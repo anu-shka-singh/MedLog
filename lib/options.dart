@@ -6,8 +6,8 @@ import 'hospitalbill.dart';
 import 'labreportbill.dart';
 import 'pathology.dart';
 import 'medicinebill.dart';
-
-
+import 'image_upload.dart';
+import 'pick_file.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -176,7 +176,11 @@ class MyHome extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HospitalizationPage()),
+                          builder: (context) => const AddItem(
+                            //imageFile: null,
+                            //onImageSelected: (File) {},
+                          ),
+                        ),
                       );
                     },
                   ),

@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medlog/pick_file.dart';
 import 'package:medlog/reusable_widget.dart';
 import 'package:medlog/signup.dart';
 
