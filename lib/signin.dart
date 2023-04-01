@@ -7,6 +7,7 @@ import 'package:medlog/reusable_widget.dart';
 import 'package:medlog/signup.dart';
 
 import 'get_started.dart';
+import 'myhomepage.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
@@ -21,14 +22,13 @@ class _SigninState extends State<Signin> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      
-        body: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-            Color.fromARGB(255, 0, 0, 0),
-            Color.fromARGB(255, 43, 40, 41),
-            Color.fromARGB(255, 105, 102, 103)
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+      body: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Color.fromARGB(255, 0, 0, 0),
+          Color.fromARGB(255, 43, 40, 41),
+          Color.fromARGB(255, 105, 102, 103)
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
             child: Padding(
           padding: EdgeInsets.fromLTRB(
@@ -44,8 +44,12 @@ class _SigninState extends State<Signin> {
                 _emailTextController,
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-              reusableTextField("Enter Password", Icons.lock_outline, true,
-                  _passwordTextController,),
+              reusableTextField(
+                "Enter Password",
+                Icons.lock_outline,
+                true,
+                _passwordTextController,
+              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.04),
               signInSignUpButton(context, true, () {
                 FirebaseAuth.instance
@@ -54,11 +58,8 @@ class _SigninState extends State<Signin> {
                         password: _passwordTextController.text)
                     .then((value) {
                   //checkCategory(_emailTextController.text);
-                  Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => GetStarted(
-                                      email: _emailTextController.text)));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
                 }).onError((error, stackTrace) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

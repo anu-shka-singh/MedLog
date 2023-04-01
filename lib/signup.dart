@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'get_started.dart';
+import 'myhomepage.dart';
 import 'signin.dart';
 import 'reusable_widget.dart';
 
@@ -65,8 +66,7 @@ class SignUpState extends State<SignUp> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => GetStarted(
-                                      email: emailTextController.text)));
+                                  builder: (context) => MyHomePage()));
                         }).onError((error, stackTrace) {});
                       }
                     })

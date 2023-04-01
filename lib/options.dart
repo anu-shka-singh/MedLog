@@ -10,7 +10,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(home: MyHome());
+  }
+}
+
+class MyHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
+      // routes: <String, WidgetBuilder>{
+      //   '/prescription': (BuildContext context) => PrescriptionPage(),
+      // },
       debugShowCheckedModeBanner: false,
       title: 'List Tile Example',
       home: Scaffold(
@@ -20,8 +30,13 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Container(
           padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage('images/backgroundmed.jpg'),
+            fit: BoxFit.cover,
+          )),
           child: ListView(children: [
-            GestureDetector(
+            InkWell(
               onTap: () {
                 Navigator.push(
                     context,
@@ -159,103 +174,15 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-//         body: ListView(
-//           children: <Widget>[
-//             ListTile(
-//               title: Text('Prescription'),
-//               onTap: () {
-// Navigator.push(
-//   context,
-//   MaterialPageRoute(builder: (context) => PrescriptionPage()),
-//                 );
-//               },
-//             ),
-// ListTile(
-//   title: Text('Bills'),
-//   onTap: () {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: Text('Bills'),
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: <Widget>[
-//               ListTile(
-//                 title: Text('Medicine'),
-//                 onTap: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                         builder: (context) => MedicinePage()),
-//                   );
-//                 },
-//               ),
-//               ListTile(
-//                 title: Text('Consultation'),
-//                 onTap: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                         builder: (context) => ConsultationPage()),
-//                   );
-//                 },
-//               ),
-//               ListTile(
-//                 title: Text('Lab Test/Reports'),
-//                 onTap: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                         builder: (context) => LabTestPage()),
-//                   );
-//                 },
-//               ),
-//               ListTile(
-//                 title: Text('Hospitalization Charges'),
-//                 onTap: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                         builder: (context) =>
-//                             HospitalizationPage()),
-//                   );
-//                 },
-//               ),
-//             ],
-//           ),
-//         );
-//       },
-//     );
-//   },
-// ),
-//             ListTile(
-//               title: Text('Lab Reports'),
-//               onTap: () {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: (context) => LabReportsPage()),
-//                 );
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-class PrescriptionPage extends StatefulWidget {
-  @override
-  State<PrescriptionPage> createState() => _PrescriptionPageState();
-}
-
-class _PrescriptionPageState extends State<PrescriptionPage> {
+class PrescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
+        leading: BackButton(
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         title: Text('Prescription'),
       ),
       body: Center(
@@ -273,8 +200,10 @@ class MedicinePage extends StatelessWidget {
         title: Text('Medicine'),
       ),
       body: Center(
-        child: Text('Medicine Page'),
-      ),
+          child: ElevatedButton(
+        child: Text("Medicine"),
+        onPressed: () => Navigator.pop(context),
+      )),
     );
   }
 }
