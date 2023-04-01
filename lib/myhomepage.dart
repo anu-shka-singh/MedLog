@@ -29,32 +29,36 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: SafeArea(child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('images/background.jpg'), fit: BoxFit.cover)
+          
+        ),
         child: Column(
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.1,
-                width: MediaQuery.of(context).size.height * 0.1,
-                color: Colors.grey,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Text(
-                      "${currentpage + 1}/${listofvalue.length}",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // ClipRRect(
+            //   borderRadius: BorderRadius.circular(20),
+            //   child: Container(
+            //     height: MediaQuery.of(context).size.height * 0.1,
+            //     width: MediaQuery.of(context).size.height * 0.1,
+            //     color: Colors.grey,
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Center(
+            //         child: Text(
+            //           "${currentpage + 1}/${listofvalue.length}",
+            //           style: TextStyle(
+            //               color: Colors.white,
+            //               fontWeight: FontWeight.bold,
+            //               fontSize: 15),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Expanded(
               child: PageView.builder(
                   controller: controller,
@@ -63,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     if (index == 0) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 30),
+                            horizontal: 10, vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
@@ -111,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     } else if (index == 1) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 30),
+                            horizontal: 10, vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
@@ -142,7 +146,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                     MaterialPageRoute(
                                         builder: (context) => MyHome()));
                               },
-                              child: Text("Additional Button"),
+                              style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(
+      Color.fromARGB(255, 241, 45, 88),
+    ),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+    ),
+  ),
+                              child: Text("Welcome Onboard!",
+                              ),
                             ),
                           ],
                         ),
@@ -156,6 +171,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-    );
+    ),);
   }
 }

@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'prescription.dart';
+import 'consultationbill.dart';
+import 'imaging.dart';
+import 'hospitalbill.dart';
+import 'labreportbill.dart';
+import 'pathology.dart';
+import 'medicinebill.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -25,14 +33,16 @@ class MyHome extends StatelessWidget {
       title: 'List Tile Example',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('MedLog'),
+        backgroundColor: Color.fromARGB(255, 241, 45, 88),
+          title: Text('MedLog',),
           centerTitle: true,
+          
         ),
         body: Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('images/backgroundmed.jpg'),
+            image: AssetImage('images/background.jpg'),
             fit: BoxFit.cover,
           )),
           child: ListView(children: [
@@ -47,10 +57,10 @@ class MyHome extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.indigo),
+                    color: Color.fromARGB(255, 235, 138, 162)),
                 child: ListTile(
-                  title: Text('Prescription'),
-                  subtitle: Text('Tap for adding prescription'),
+                  title: Text('Prescription',style: TextStyle(fontWeight: FontWeight.bold)),
+                  subtitle: Text('Tap for adding prescription',style: TextStyle(fontWeight: FontWeight.bold)),
                   leading: Icon(
                     Icons.medication,
                     color: Colors.white,
@@ -64,7 +74,7 @@ class MyHome extends StatelessWidget {
                   //enabled: false,
 
                   textColor: Colors.black,
-                  tileColor: Colors.indigo,
+                  //tileColor: Colors.indigo,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                 ),
@@ -74,10 +84,10 @@ class MyHome extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.indigo),
+                  color:  Color.fromARGB(255, 235, 138, 162)),
               child: ExpansionTile(
-                title: Text('Lab reports'),
-                subtitle: Text('Tap for adding lap reports'),
+                title: Text('Lab reports',style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text('Tap for adding lap reports',style: TextStyle(fontWeight: FontWeight.bold)),
                 leading: Icon(
                   Icons.medication,
                   color: Colors.white,
@@ -88,21 +98,23 @@ class MyHome extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20)),
                 children: [
                   ListTile(
-                    title: Text('Pathology/Microbiology'),
+                    title: Text('Pathology/Microbiology',style: TextStyle(fontWeight: FontWeight.bold)),
+                    leading: Icon(Icons.arrow_forward_ios_outlined , size: 20,),
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MedicinePage()),
+                        MaterialPageRoute(builder: (context) => pathology()),
                       );
                     },
                   ),
                   ListTile(
-                    title: Text('Imaging'),
+                    title: Text('Imaging',style: TextStyle(fontWeight: FontWeight.bold)),
+                    leading: Icon(Icons.arrow_forward_ios_outlined , size: 20,),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ConsultationPage()),
+                            builder: (context) => imaging()),
                       );
                     },
                   ),
@@ -113,10 +125,10 @@ class MyHome extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.indigo),
+                  color:  Color.fromARGB(255, 235, 138, 162)),
               child: ExpansionTile(
-                title: Text('Bills'),
-                subtitle: Text('Tap for adding bills'),
+                title: Text('Bills', style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text('Tap for adding bills',style: TextStyle(fontWeight: FontWeight.bold)),
                 leading: Icon(
                   Icons.medication,
                   color: Colors.white,
@@ -127,35 +139,39 @@ class MyHome extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20)),
                 children: [
                   ListTile(
-                    title: Text('Medicine'),
+                    title: Text('Medicine',style: TextStyle(fontWeight: FontWeight.bold)),
+                    leading: Icon(Icons.arrow_forward_ios_outlined , size: 20,),
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MedicinePage()),
+                        MaterialPageRoute(builder: (context) => medicinebill()),
                       );
                     },
                   ),
                   ListTile(
-                    title: Text('Consultation'),
+                    title: Text('Consultation',style: TextStyle(fontWeight: FontWeight.bold)),
+                    leading: Icon(Icons.arrow_forward_ios_outlined , size: 20,),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ConsultationPage()),
+                            builder: (context) => consultationbill()),
                       );
                     },
                   ),
                   ListTile(
-                    title: Text('Lab Test/Reports'),
+                    title: Text('Lab Test/Reports',style: TextStyle(fontWeight: FontWeight.bold)),
+                    leading: Icon(Icons.arrow_forward_ios_outlined , size: 20,),
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LabTestPage()),
+                        MaterialPageRoute(builder: (context) => labreportbill()),
                       );
                     },
                   ),
                   ListTile(
-                    title: Text('Hospitalization Charges'),
+                    title: Text('Hospitalization Charges',style: TextStyle(fontWeight: FontWeight.bold)),
+                    leading: Icon(Icons.arrow_forward_ios_outlined , size: 20,),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -174,91 +190,3 @@ class MyHome extends StatelessWidget {
   }
 }
 
-class PrescriptionPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        leading: BackButton(
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Text('Prescription'),
-      ),
-      body: Center(
-        child: Text('Prescription Page'),
-      ),
-    ));
-  }
-}
-
-class MedicinePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Medicine'),
-      ),
-      body: Center(
-          child: ElevatedButton(
-        child: Text("Medicine"),
-        onPressed: () => Navigator.pop(context),
-      )),
-    );
-  }
-}
-
-class ConsultationPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Consultation'),
-        ),
-        body: Center(
-          child: Text('Consultation Page'),
-        ));
-  }
-}
-
-class LabTestPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Lab Test/Reports'),
-      ),
-      body: Center(
-        child: Text('Lab Test/Reports Page'),
-      ),
-    );
-  }
-}
-
-class HospitalizationPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Hospitalization Charges'),
-      ),
-      body: Center(
-        child: Text('Hospitalization Charges Page'),
-      ),
-    );
-  }
-}
-
-class LabReportsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Lab Reports'),
-      ),
-      body: Center(
-        child: Text('Lab Reports Page'),
-      ),
-    );
-  }
-}
