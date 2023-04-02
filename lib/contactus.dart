@@ -23,7 +23,7 @@ class _ContactUsState extends State<ContactUs> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
             leading: IconButton(
@@ -41,11 +41,12 @@ class _ContactUsState extends State<ContactUs> {
             fit: BoxFit.cover,
           )),
           child:Center(
+            child: SingleChildScrollView(
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   // Text(
                   //   'Contact Us',
@@ -100,15 +101,15 @@ class _ContactUsState extends State<ContactUs> {
                           height: 8.0,
                         ),
                         MaterialButton(
-                          onPressed: () {},
+                          onPressed: () => Navigator.of(context).pop(),
                           minWidth: double.infinity,
                           height: 50,
-                          // color: Color.fromRGBO(r, g, b, opacity),
+                          color:  Color.fromARGB(255, 241, 45, 88),
                           child: Text(
                             'SUBMIT',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                           ),
-                          color: Colors.white,
+
                         )
                       ],
                     ),
@@ -116,6 +117,6 @@ class _ContactUsState extends State<ContactUs> {
                 ]),
           ),
           ),
-        ),);
+        ),),);
   }
 }
