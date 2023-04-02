@@ -74,6 +74,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:medlog/options.dart';
+import 'contactus.dart';
 import 'image_list.dart';
 import 'image_upload.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -159,7 +160,7 @@ class imagingState extends State<imaging> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MyHome(),
+                    builder: (context) => ContactUs(),
                   ),
                 );
               },

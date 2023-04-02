@@ -112,7 +112,9 @@ class _AddItemState extends State<AddItem> {
                       docUser.set(dataToSend);
                     }
                   },
-                  child: Text('Submit'))
+                  child: Text('Submit'),
+            
+                  )
                   
             ],
           ),
