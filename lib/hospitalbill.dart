@@ -97,7 +97,7 @@ class hospitalbillState extends State<hospitalbill> {
   List searchResult = [];
 
   Future<void> searchFromFirebase() async {
-    final result = await FirebaseFirestore.instance.collection('prescription').get();
+    final result = await FirebaseFirestore.instance.collection('hospitalbill').get();
 
     setState(() {
       searchResult = result.docs.map((e) => e.data()).toList();
@@ -172,6 +172,11 @@ class hospitalbillState extends State<hospitalbill> {
         ),
       ),
       body: Container(
+        decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage('images/background.jpg'),
+            fit: BoxFit.cover,
+          )),
         child: Column(
           children : [
             Expanded(
