@@ -77,6 +77,8 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'image_list.dart';
+import 'image_upload.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -110,7 +112,7 @@ class _hospitalbillState extends State<hospitalbill> {
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                color:  Color.fromARGB(255, 241, 45, 88),
+                color: Color.fromARGB(255, 241, 45, 88),
               ),
               child: Text(
                 'Explore!',
@@ -119,13 +121,18 @@ class _hospitalbillState extends State<hospitalbill> {
                   fontSize: 24,
                 ),
               ),
-              
             ),
             ListTile(
               leading: Icon(Icons.add_a_photo),
               title: Text('Add another image'),
               onTap: () {
                 // add logic here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddItem(),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -133,6 +140,12 @@ class _hospitalbillState extends State<hospitalbill> {
               title: Text('Contact us'),
               onTap: () {
                 // add logic here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ItemList(),
+                  ),
+                );
               },
             ),
           ],

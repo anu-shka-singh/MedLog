@@ -164,18 +164,19 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Text("Welcome Onboard!",
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                    } else {
-                      // handle additional pages here if needed
-                      return const SizedBox.shrink();
-                    }
-                  }),
-            )
-          ],
+                            ],
+                          ),
+                        );
+                      } else {
+                        // handle additional pages here if needed
+                        return const SizedBox.shrink();
+                      }
+                    }),
+              )
+            ],
+          ),
         ),
       ),
-    ),);
+    );
   }
 }

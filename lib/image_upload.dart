@@ -14,8 +14,7 @@ class AddItem extends StatefulWidget {
 class _AddItemState extends State<AddItem> {
   GlobalKey<FormState> key = GlobalKey();
 
-  CollectionReference _reference =
-      FirebaseFirestore.instance.collection('prescription');
+  final docUser = FirebaseFirestore.instance.collection('prescription').doc();
 
   String imageUrl = '';
 
@@ -44,20 +43,21 @@ class _AddItemState extends State<AddItem> {
               ),
               
             ),
-            ListTile(
-              leading: Icon(Icons.add_a_photo),
-              title: Text('Add another image'),
-              onTap: () {
-                // add logic here
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.contact_phone),
-              title: Text('Contact us'),
-              onTap: () {
-                // add logic here
-              },
-            ),
+
+            // ListTile(
+            //   leading: Icon(Icons.add_a_photo),
+            //   title: Text('Add another image'),
+            //   onTap: () {
+            //     // add logic here
+            //   },
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.contact_phone),
+            //   title: Text('Contact us'),
+            //   onTap: () {
+            //     // add logic here
+            //   },
+            // ),
           ],
         ),
       ),
@@ -89,6 +89,8 @@ class _AddItemState extends State<AddItem> {
                       imageUrl = await referenceImageToUpload.getDownloadURL();
                     } catch (error) {
                       //Some error occurred
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text('Error uploading image. Please upload again.')));
                     }
                   },
                   icon: Icon(Icons.camera_alt,
@@ -99,15 +101,15 @@ class _AddItemState extends State<AddItem> {
                     if (imageUrl.isEmpty) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text('Please upload an image')));
-
-                      return;
                     }
 
                     if (key.currentState!.validate()) {
                       Map<String, String> dataToSend = {
                         'image': imageUrl,
                       };
-                      _reference.add(dataToSend);
+
+                      //Add a new item
+                      docUser.set(dataToSend);
                     }
                   },
                   child: Text('Submit'))
