@@ -14,7 +14,7 @@ class ItemListState extends State<ItemList> {
   List searchResult = [];
 
   Future<void> searchFromFirebase() async {
-    final result = await FirebaseFirestore.instance.collection('prescription').get();
+    final result = await FirebaseFirestore.instance.collection('hospitallBill').get();
 
     setState(() {
       searchResult = result.docs.map((e) => e.data()).toList();

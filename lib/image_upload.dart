@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,9 +13,12 @@ class AddItem extends StatefulWidget {
 }
 
 class _AddItemState extends State<AddItem> {
+  // TextEditingController _controllerName = TextEditingController();
+  // TextEditingController _controllerQuantity = TextEditingController();
+
   GlobalKey<FormState> key = GlobalKey();
 
-  final docUser = FirebaseFirestore.instance.collection('prescription').doc();
+  final docuser = FirebaseFirestore.instance.collection('hospitallBill').doc();
 
   String imageUrl = '';
 
@@ -22,94 +26,115 @@ class _AddItemState extends State<AddItem> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hospitilization Charges'),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 241, 45, 88),
+        title: Text('Add a hospital bill'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color:  Color.fromARGB(255, 241, 45, 88),
-              ),
-              child: Text(
-                'Explore!',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24,
-                ),
-              ),
-              
-            ),
-
-            // ListTile(
-            //   leading: Icon(Icons.add_a_photo),
-            //   title: Text('Add another image'),
-            //   onTap: () {
-            //     // add logic here
-            //   },
-            // ),
-            // ListTile(
-            //   leading: Icon(Icons.contact_phone),
-            //   title: Text('Contact us'),
-            //   onTap: () {
-            //     // add logic here
-            //   },
-            // ),
-          ],
-        ),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Form(
           key: key,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // TextFormField(
+              //   controller: _controllerName,
+              //   decoration:
+              //       InputDecoration(hintText: 'Enter the name of the item'),
+              //   validator: (String? value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Please enter the item name';
+              //     }
+
+              //     return null;
+              //   },
+              // ),
+              // TextFormField(
+              //   controller: _controllerQuantity,
+              //   decoration:
+              //       InputDecoration(hintText: 'Enter the quantity of the item'),
+              //   validator: (String? value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Please enter the item quantity';
+              //     }
+
+              //     return null;
+              //   },
+              // ),
               IconButton(
                   onPressed: () async {
+                    /*
+                * Step 1. Pick/Capture an image   (image_picker)
+                * Step 2. Upload the image to Firebase storage
+                * Step 3. Get the URL of the uploaded image
+                * Step 4. Store the image URL inside the corresponding
+                *         document of the database.
+                * Step 5. Display the image on the list
+                *
+                * */
+
+                    //Step 1:Pick image/
+                    //Install image_picker
+                    //Import the corresponding library
+
                     ImagePicker imagePicker = ImagePicker();
-                    XFile? file =
-                        await imagePicker.pickImage(source: ImageSource.gallery);
+                    XFile? file = await imagePicker.pickImage(
+                        source: ImageSource.gallery);
                     print('${file?.path}');
+
+                    
+
                     if (file == null) return;
+                    //Import dart:core
                     String uniqueFileName =
                         DateTime.now().millisecondsSinceEpoch.toString();
+
+                    //Step 2: Upload to Firebase storage/
+                    //Install firebase_storage
+                    //Import the library
+
+                    //Get a reference to storage root
                     Reference referenceRoot = FirebaseStorage.instance.ref();
                     Reference referenceDirImages =
                         referenceRoot.child('images');
+
+                    //Create a reference for the image to be stored
                     Reference referenceImageToUpload =
                         referenceDirImages.child('$uniqueFileName');
+
+                    //Handle errors/success
                     try {
+                      //Store the file
                       await referenceImageToUpload.putFile(File(file.path));
                       //Success: get the download URL
                       imageUrl = await referenceImageToUpload.getDownloadURL();
                     } catch (error) {
                       //Some error occurred
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('Error uploading image. Please upload again.')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Please upload the image again')));
                     }
                   },
-                  icon: Icon(Icons.camera_alt,
-                  size:30),
-                  ),
+                  icon: const Icon(Icons.camera_alt)),
               ElevatedButton(
                   onPressed: () async {
                     if (imageUrl.isEmpty) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('Please upload an image')));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please upload an image'),
+                        ),
+                      );
                     }
 
                     if (key.currentState!.validate()) {
+                      // String itemName = _controllerName.text;
+                      // String itemQuantity = _controllerQuantity.text;
+
+                      //Create a Map of data
                       Map<String, String> dataToSend = {
+                        // 'name': itemName,
+                        // 'quantity': itemQuantity,
                         'image': imageUrl,
                       };
 
                       //Add a new item
-                      docUser.set(dataToSend);
+                      docuser.set(dataToSend);
                     }
                   },
                   child: Text('Submit'),
@@ -119,7 +144,6 @@ class _AddItemState extends State<AddItem> {
             ],
           ),
         ),
-      ),
       ),
     );
   }
