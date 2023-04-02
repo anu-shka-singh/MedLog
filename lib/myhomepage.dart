@@ -98,13 +98,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: Colors.black,
-                                          backgroundColor: Color.fromARGB(
-                                              255, 247, 203, 217),
+                                          // backgroundColor: Color.fromARGB(
+                                          //     255, 247, 203, 217),
                                           fontSize: 35,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
+                                 
                                   ],
                                 ),
                               ),
@@ -118,8 +119,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             horizontal: 10, vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
+              
                               child: Card(
                                 elevation: 6.0,
                                 shape: RoundedRectangleBorder(
@@ -130,8 +133,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     image: DecorationImage(
                                       image: AssetImage(
                                           listofvalue[index].imagepath),
+                                          alignment: Alignment.topCenter,
                                       // fit: BoxFit.cover
                                     ),
+                
                                   ),
                                 ),
                               ),

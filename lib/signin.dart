@@ -24,12 +24,17 @@ class _SigninState extends State<Signin> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Color.fromARGB(255, 0, 0, 0),
-          Color.fromARGB(255, 43, 40, 41),
-          Color.fromARGB(255, 105, 102, 103)
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        // decoration: const BoxDecoration(
+        //     gradient: LinearGradient(colors: [
+        //   Color.fromARGB(255, 0, 0, 0),
+        //   Color.fromARGB(255, 43, 40, 41),
+        //   Color.fromARGB(255, 105, 102, 103)
+        // ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage('images/bg.jpg'),
+            fit: BoxFit.cover,
+          )),
         child: SingleChildScrollView(
             child: Padding(
           padding: EdgeInsets.fromLTRB(

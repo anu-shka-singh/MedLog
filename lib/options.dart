@@ -176,10 +176,11 @@ class MyHome extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AddItem(
-                            //imageFile: null,
-                            //onImageSelected: (File) {},
-                          ),
+                          // builder: (context) => const AddItem(
+                          //   //imageFile: null,
+                          //   //onImageSelected: (File) {},
+                          // ),
+                          builder: (context) => hospitalbill()
                         ),
                       );
                     },
