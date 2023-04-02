@@ -77,6 +77,7 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:medlog/options.dart';
 import 'image_list.dart';
 import 'image_upload.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -87,19 +88,25 @@ class hospitalbill extends StatefulWidget {
   const hospitalbill({Key? key}) : super(key: key);
 
   @override
-  State<hospitalbill> createState() => _hospitalbillState();
+  State<hospitalbill> createState() => hospitalbillState();
 }
 
-class _hospitalbillState extends State<hospitalbill> {
+class hospitalbillState extends State<hospitalbill> {
   GlobalKey<FormState> key = GlobalKey();
 
-  CollectionReference _reference =
-      FirebaseFirestore.instance.collection('prescription');
+  List searchResult = [];
 
-  String imageUrl = '';
+  Future<void> searchFromFirebase() async {
+    final result = await FirebaseFirestore.instance.collection('prescription').get();
+
+    setState(() {
+      searchResult = result.docs.map((e) => e.data()).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    searchFromFirebase();
     return Scaffold(
       appBar: AppBar(
         title: Text('Hospital Bill'),
@@ -110,7 +117,7 @@ class _hospitalbillState extends State<hospitalbill> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 241, 45, 88),
               ),
@@ -123,8 +130,8 @@ class _hospitalbillState extends State<hospitalbill> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.add_a_photo),
-              title: Text('Add another image'),
+              leading: const Icon(Icons.add_a_photo),
+              title: const Text('Add another image'),
               onTap: () {
                 // add logic here
                 Navigator.push(
@@ -135,15 +142,28 @@ class _hospitalbillState extends State<hospitalbill> {
                 );
               },
             ),
+            // ListTile(
+            //   leading: Icon(Icons.image),
+            //   title: Text('View images'),
+            //   onTap: () {
+            //     // add logic here
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => ItemList(),
+            //       ),
+            //     );
+            //   },
+            // ),
             ListTile(
               leading: Icon(Icons.contact_phone),
-              title: Text('Contact us'),
+              title: Text('Contact Us'),
               onTap: () {
                 // add logic here
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ItemList(),
+                    builder: (context) => MyHome(),
                   ),
                 );
               },
@@ -151,61 +171,36 @@ class _hospitalbillState extends State<hospitalbill> {
           ],
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-        child: Form(
-          key: key,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                  onPressed: () async {
-                    ImagePicker imagePicker = ImagePicker();
-                    XFile? file =
-                        await imagePicker.pickImage(source: ImageSource.gallery);
-                    print('${file?.path}');
-                    if (file == null) return;
-                    String uniqueFileName =
-                        DateTime.now().millisecondsSinceEpoch.toString();
-                    Reference referenceRoot = FirebaseStorage.instance.ref();
-                    Reference referenceDirImages =
-                        referenceRoot.child('images');
-                    Reference referenceImageToUpload =
-                        referenceDirImages.child('$uniqueFileName');
-                    try {
-                      await referenceImageToUpload.putFile(File(file.path));
-                      //Success: get the download URL
-                      imageUrl = await referenceImageToUpload.getDownloadURL();
-                    } catch (error) {
-                      //Some error occurred
-                    }
-                  },
-                  icon: Icon(Icons.camera_alt,
-                  size:30),
-                  ),
-              ElevatedButton(
-                  onPressed: () async {
-                    if (imageUrl.isEmpty) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('Please upload an image')));
+      body: Container(
+        child: Column(
+          children : [
+            Expanded(
+              child: ListView.builder(
+                itemCount: searchResult.length,
+                itemBuilder: (context, index) {
+                  String url = searchResult[index]['image'];
 
-                      return;
-                    }
-
-                    if (key.currentState!.validate()) {
-                      Map<String, String> dataToSend = {
-                        'image': imageUrl,
-                      };
-                      _reference.add(dataToSend);
-                    }
-                  },
-                  child: Text('Submit'))
-                  
-            ],
-          ),
+                  return ListTile(
+                    title: SizedBox(
+                      height: 200,
+                      width: 200,
+                      child : Image.network(url),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ]
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => AddItem()));
+        },
+        backgroundColor : Color.fromARGB(255, 241, 45, 88),
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
